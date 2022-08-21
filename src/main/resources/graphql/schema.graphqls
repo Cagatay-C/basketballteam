@@ -1,0 +1,14 @@
+schema{
+	query: Query
+}
+
+type Player {
+	id:ID!,
+	name:String!,
+	surname:String!,
+	position:Int! 
+}
+
+type Query{
+	players:[Player]
+}

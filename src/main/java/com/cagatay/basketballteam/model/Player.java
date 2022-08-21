@@ -1,6 +1,5 @@
 package com.cagatay.basketballteam.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +18,6 @@ public class Player {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Column(unique = true)
 	@NotEmpty(message = "Player's name cannot be empty or null")
 	private String name;
 	@NotEmpty(message = "Player's surname cannot be empty or null")
