@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import com.cagatay.basketballteam.enumeration.Position;
 import com.cagatay.basketballteam.model.Player;
 import com.cagatay.basketballteam.repository.PlayerRepository;
 import com.cagatay.basketballteam.service.PlayerService;
@@ -15,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
-@Service
+@Controller
 @Transactional
 @Slf4j
 public class PlayerServiceImpl implements PlayerService{
@@ -34,7 +38,6 @@ public class PlayerServiceImpl implements PlayerService{
 	}
 
 	@QueryMapping
-	@Override
 	public List<Player> players() {
 		log.info("Fetching all players");
 		return playerRepository.findAll();

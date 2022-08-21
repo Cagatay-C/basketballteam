@@ -1,14 +1,20 @@
-schema{
-	query: Query
+type Query{
+	players:[Player]
 }
 
 type Player {
 	id:ID!,
 	name:String!,
 	surname:String!,
-	position:Int! 
+	position:Position!
 }
 
-type Query{
-	players:[Player]
+enum Position{
+	POINT_GUARD,
+	SHOOTING_GUARD,
+	SMALL_FORWARD,
+	POWER_FORWARD,
+	CENTER
 }
+
+
