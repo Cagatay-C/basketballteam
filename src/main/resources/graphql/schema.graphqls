@@ -1,20 +1,36 @@
+schema {
+   query: Query
+}
+
 type Query{
 	players:[Player]
 }
 
 type Player {
-	id:ID!,
-	name:String!,
-	surname:String!,
+	id:ID!
+	name:String!
+	surname:String!
 	position:Position!
 }
 
 enum Position{
-	POINT_GUARD,
-	SHOOTING_GUARD,
-	SMALL_FORWARD,
-	POWER_FORWARD,
+	POINT_GUARD
+	SHOOTING_GUARD
+	SMALL_FORWARD
+	POWER_FORWARD
 	CENTER
+}
+
+type Mutation{
+	createPlayer(input:CreatePlayerInput!): Player!
+	deletePlayer(id: Int!): Boolean!
+}
+
+input CreatePlayerInput{
+	id:ID
+	name:String!
+	surname:String!
+	position:Position!
 }
 
 
