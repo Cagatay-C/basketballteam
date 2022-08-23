@@ -39,7 +39,7 @@ public class PlayerServiceImpl implements PlayerService{
 	}
 	
 	@QueryMapping
-	public List<Player> players() {
+	public List<Player> getAllPlayers() {
 		log.info("Fetching all players");
 		return playerRepository.findAll();
 	}

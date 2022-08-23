@@ -3,7 +3,7 @@ schema {
 }
 
 type Query{
-	players:[Player]
+	getAllPlayers:[Player]
 }
 
 type Player {

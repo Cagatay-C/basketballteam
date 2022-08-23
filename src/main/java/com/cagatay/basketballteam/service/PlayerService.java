@@ -8,5 +8,5 @@ import com.cagatay.basketballteam.model.Player;
 public interface PlayerService {
 	Player createPlayer(CreatePlayerInput player);
 	int deletePlayer(Long id);
-	List<Player> players();
+	List<Player> getAllPlayers();
 }
