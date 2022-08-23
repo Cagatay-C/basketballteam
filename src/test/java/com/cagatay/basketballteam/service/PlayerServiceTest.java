@@ -37,7 +37,7 @@ class PlayerServiceTest {
 	}
 
 	@Test
-	void itShouldCreatePlayer() throws Exception {
+	void itShouldCreatePlayer() throws RuntimeException {
 		//given
 		given(playerRepository.save(player)).willReturn(player);
 		
