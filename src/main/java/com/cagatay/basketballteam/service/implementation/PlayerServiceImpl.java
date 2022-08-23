@@ -22,12 +22,12 @@ public class PlayerServiceImpl implements PlayerService{
 	private final PlayerRepository playerRepository;
 	private final int PLAYERS_LIMIT = 5;
 
-	public Player savePlayer(Player player) throws Exception {
+	public Player savePlayer(Player player) throws RuntimeException {
 		List<Player> playerList = findAllPlayers();
 		if(playerList.size() >= PLAYERS_LIMIT)
-			throw new Exception("Team has already maximum capacity.");
+			throw new RuntimeException("Team has already maximum capacity.");
 		if(isContainPosition(playerList, player.getPosition()))
-			throw new Exception("Position already exist in the team.");
+			throw new RuntimeException("Position already exist in the team.");
 		return playerRepository.save(player);
 	}
 

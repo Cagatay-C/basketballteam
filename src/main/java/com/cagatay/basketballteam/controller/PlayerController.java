@@ -22,7 +22,7 @@ public class PlayerController{
 	private final PlayerService playerService;
 	
 	@MutationMapping
-	public Player createPlayer (@Argument("input") CreatePlayerInput createPlayerInput) throws Exception {
+	public Player createPlayer (@Argument("input") CreatePlayerInput createPlayerInput) throws RuntimeException {
 		log.info("Adding new player: {}" + createPlayerInput.getName());	
 		return playerService.savePlayer(new Player(null,createPlayerInput.getName(),
 				createPlayerInput.getSurname(),createPlayerInput.getPosition()
