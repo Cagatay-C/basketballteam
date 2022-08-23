@@ -4,12 +4,9 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-import com.cagatay.basketballteam.input.CreatePlayerInput;
+import com.cagatay.basketballteam.enumeration.Position;
 import com.cagatay.basketballteam.model.Player;
 import com.cagatay.basketballteam.repository.PlayerRepository;
 import com.cagatay.basketballteam.service.PlayerService;
@@ -19,28 +16,37 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Transactional
-@Controller
+@Service
 @Slf4j
 public class PlayerServiceImpl implements PlayerService{
 	private final PlayerRepository playerRepository;
-	
-	@MutationMapping
-	public Player createPlayer (@Argument("input") CreatePlayerInput createPlayerInput) {
-		log.info("Adding new player: {}" + createPlayerInput.getName());
-		return playerRepository.save(new Player(null,createPlayerInput.getName(),
-				createPlayerInput.getSurname(),createPlayerInput.getPosition()
-				));
+	private final int PLAYERS_LIMIT = 5;
+
+	public Player savePlayer(Player player) throws Exception {
+		List<Player> playerList = findAllPlayers();
+		if(playerList.size() >= PLAYERS_LIMIT)
+			throw new Exception("Team has already maximum capacity.");
+		if(isContainPosition(playerList, player.getPosition()))
+			throw new Exception("Position already exist in the team.");
+		return playerRepository.save(player);
 	}
 
-	@MutationMapping
-	public int deletePlayer(@Argument Long id) {
+	public int deleteByPlayerID(Long id) {
 		log.info("Deleting player by ID: {}", id);
 		return playerRepository.deleteById(id);
 	}
 	
-	@QueryMapping
-	public List<Player> getAllPlayers() {
+	public List<Player> findAllPlayers() {
 		log.info("Fetching all players");
 		return playerRepository.findAll();
+	}
+	
+	private Boolean isContainPosition(List<Player> players, Position position) {
+		Boolean isContain = false;
+		for (int i=0; i<players.size(); i++) {
+			if(players.get(i).getPosition() == position)
+				isContain = true;
+		}
+		return isContain;
 	}
 }

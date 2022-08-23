@@ -14,7 +14,6 @@ import static org.mockito.BDDMockito.given;
 import java.util.List;
 
 import com.cagatay.basketballteam.enumeration.Position;
-import com.cagatay.basketballteam.input.CreatePlayerInput;
 import com.cagatay.basketballteam.model.Player;
 import com.cagatay.basketballteam.repository.PlayerRepository;
 import com.cagatay.basketballteam.service.implementation.PlayerServiceImpl;
@@ -38,24 +37,19 @@ class PlayerServiceTest {
 	}
 
 	@Test
-	void itShouldCreatePlayer() {
+	void itShouldCreatePlayer() throws Exception {
 		//given
-		CreatePlayerInput createPlayerInput = new CreatePlayerInput(null,
-				player.getName(),
-				player.getSurname(),
-				player.getPosition()
-				);
 		given(playerRepository.save(player)).willReturn(player);
 		
 		//when
-		Player createdPlayer = underTest.createPlayer(createPlayerInput);
+		Player savedPlayer = underTest.savePlayer(player);
 		
 		//then
-		assertThat(createdPlayer).isNotNull();
+		assertThat(savedPlayer).isNotNull();
 	}
 
 	@Test
-	void itShouldGetAllPlayers() {
+	void itShouldFindAllPlayers() {
 		//given
 		Player secondPlayer = new Player(null,
 				"caglar",
@@ -66,7 +60,7 @@ class PlayerServiceTest {
 		given(playerRepository.findAll()).willReturn(List.of(player, secondPlayer));
 		
 		//when
-		List<Player> playerList = underTest.getAllPlayers();
+		List<Player> playerList = underTest.findAllPlayers();
 		
 		//then
 		assertThat(playerList).isNotNull();
